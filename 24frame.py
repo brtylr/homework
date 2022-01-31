@@ -16,7 +16,7 @@ for i in range(0, len(dna)):
 # Likewise, sequence number should be 'i + 1' to start at "1" instead of "0".
 # For the purposes of this class, values begin at 0 for 1, and so on.
 
-
+# ---
 
 # nested loops, with randomized dna sequences of length 9, copied and modified from 22atseq.py
 
