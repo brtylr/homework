@@ -43,4 +43,4 @@ for i in range(0, len(seq)-w+1):
 # For large values of 'w', say w = 1000, this would be incredibly impractical.
 # Furthermore, this would not work well with a 'w' that varies, as the code would need to be changed every single time.
 # The only real pro is that it may be more clear with the breakdown of each if-statement what exactly is happening at each line.
-# And furthmore, if there was a need to exclude certain values from each window, say the first and last nucleotides, then one could simply erase 'seq[i]' and 'seq[i+10]' (generalized: 'seq[i+w-1]')
+# And furthmore, if there was a need to exclude certain values from each window's GC calculation, e.g. the first and last nucleotides, then one could simply erase 'seq[i]' and 'seq[i+10]' (generalized: 'seq[i+w-1]').
