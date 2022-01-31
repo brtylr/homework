@@ -38,7 +38,7 @@ for i in range(0, len(seq)-w+1):
         GC = 1 + GC
     print('%.4f' % (GC / w))
 
-# As opposed to nested loops, this program functions but it is tedious to write out due to it's length.
+# As opposed to nested loops, this program functions but it is tedious to write out due to its length.
 # It is also very hard to re-code as a change in 'w' requires a manual extension/shortening of all the if-statements.
 # For large values of 'w', say w = 1000, this would be incredibly impractical.
 # Furthermore, this would not work well with a 'w' that varies, as the code would need to be changed every single time.
