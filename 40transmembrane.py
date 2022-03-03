@@ -1,40 +1,24 @@
 import sys
 
-def KD(dna):
-	sum = 0
-	for aa in range(len(dna)):
-		if dna[aa] == "R": sum += -4.5
-		elif dna[aa] == "K": sum += -3.9
-		elif dna[aa] == "N": sum += -3.5
-		elif dna[aa] == "D": sum += -3.5
-		elif dna[aa] == "Q": sum += -3.5
-		elif dna[aa] == "E": sum += -3.5
-		elif dna[aa] == "H": sum += -3.2
-		elif dna[aa] == "P": sum += -1.6
-		elif dna[aa] == "Y": sum += -1.3
-		elif dna[aa] == "W": sum += -0.9
-		elif dna[aa] == "S": sum += -0.8
-		elif dna[aa] == "T": sum += -0.7
-		elif dna[aa] == "G": sum += -0.4
-		elif dna[aa] == "A": sum += 1.8
-		elif dna[aa] == "M": sum += 1.9
-		elif dna[aa] == "C": sum += 2.5
-		elif dna[aa] == "F": sum += 2.8
-		elif dna[aa] == "L": sum += 3.8
-		elif dna[aa] == "V": sum += 4.2
-		elif dna[aa] == "I": sum += 4.5
-		else: print("Invalid aa!")
-	return sum/len(dna)
-
-def proline(dna):
-	for aa in range(len(dna)):
-		if dna[aa] == "P":	return False
-
+aa = ("R", "K", "N", "D", "Q", "E", "H", "P", "Y", "W", "S", "T", "G", "A", "M", "C", "F", "L", "V", "I")
+hydropathy = (-4.5, -3.9, -3.5, -3.5, -3.5, -3.5, -3.2, -1.6, -1.3, -0.9, -0.8, -0.7, -0.4, 1.8, 1.9, 2.5, 2.8, 3.8, 4.2, 4.5)
 seqname = input("Which sequence would you like to run? (e.g. AT1G75120.1): ")
 seqnamecheck = " "
 toggle1 = 0
 toggle2 = 0
 
+def KD(dna):
+	sum = 0
+	for i in range(len(dna)):
+		for j in range(20):
+			if dna[i] == aa[j]: sum += hydropathy[j]
+		
+	return sum/len(dna)
+
+def proline(dna):
+	for aa in range(len(dna)):
+		if dna[aa] == "P":	return False
+		
 with open(sys.argv[1]) as fp:
 	seq = "0"
 	while seqname != seqnamecheck:
