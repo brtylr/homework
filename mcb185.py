@@ -74,3 +74,89 @@ def dust_masker(seq, window_size, mask_level, threshold):
 					else:	seq_list[i+nt] = window[nt]
 	mask_sequence = "".join(seq_list)
 	return(mask_sequence)
+
+# DNA to RNA converter
+def RNA_converter(dna_seq):
+	rna_seq = [0] * len(dna_seq)
+	for i in range(len(dna_seq)):
+		if dna_seq[i] == "A" or dna_seq[i] == "a":	rna_seq[i] = "A"
+		elif dna_seq[i] == "C" or dna_seq[i] == "c":	rna_seq[i] = "C"
+		elif dna_seq[i] == "G" or dna_seq[i] == "g":	rna_seq[i] = "G"
+		elif dna_seq[i] == "T" or dna_seq[i] == "t":	rna_seq[i] = "U"
+	rna_seq = "".join(rna_seq)
+	return rna_seq
+
+# DNA to complementary DNA converter
+def complementary_DNA(dna_seq):
+	comp_dna = []
+	for i in range(len(dna_seq)-1, -1, -1):
+		comp_dna.append(dna_seq[i])
+	comp_dna = "".join(comp_dna)
+	return comp_dna
+
+
+# RNA translation to amino acid
+def translation(rna):
+	rna_seq = rna	# Preserves original rna string
+
+	if len(rna_seq)%3 == 1:	rna_seq = rna_seq[0:len(rna_seq)-1]		# Removes remainder of 1 from translation
+	elif len(rna_seq)%3 == 2:	rna_seq = rna_seq[0:len(rna_seq)-2]	# Removes remainder of 2 from translation
+
+	pep_seq = [0] * int((len(rna_seq)/3))
+
+	for i in range(0, len(rna_seq), 3):		# Amino acid translating loop
+		if rna_seq[i] == "U":
+			if rna_seq[i+1] == "U":	#U _ _
+				if rna_seq[i+2] == "U":	pep_seq[int(i/3)] = "F"
+				elif rna_seq[i+2] == "C":	pep_seq[int(i/3)] = "F"
+				elif rna_seq[i+2] == "A":	pep_seq[int(i/3)] = "L"
+				elif rna_seq[i+2] == "G":	pep_seq[int(i/3)] = "L"
+			elif rna_seq[i+1] == "C":	pep_seq[int(i/3)] = "S"
+			elif rna_seq[i+1] == "A":
+				if rna_seq[i+2] == "U":	pep_seq[int(i/3)] = "Y"
+				elif rna_seq[i+2] == "C":	pep_seq[int(i/3)] = "Y"
+				elif rna_seq[i+2] == "A":	pep_seq[int(i/3)] = "X"
+				elif rna_seq[i+2] == "G":	pep_seq[int(i/3)] = "X"
+			elif rna_seq[i+1] == "G":
+				if rna_seq[i+2] == "U":	pep_seq[int(i/3)] = "C"
+				elif rna_seq[i+2] == "C":	pep_seq[int(i/3)] = "C"
+				elif rna_seq[i+2] == "A":	pep_seq[int(i/3)] = "X"
+				elif rna_seq[i+2] == "G":	pep_seq[int(i/3)] = "W"
+		elif rna_seq[i] == "C":	#C _ _
+			if rna_seq[i+1] == "U":	pep_seq[int(i/3)] = "L"
+			elif rna_seq[i+1] == "C":	pep_seq[int(i/3)] = "P"
+			elif rna_seq[i+1] == "A":
+				if rna_seq[i+2] == "U":	pep_seq[int(i/3)] = "H"
+				elif rna_seq[i+2] == "C":	pep_seq[int(i/3)] = "H"
+				elif rna_seq[i+2] == "A":	pep_seq[int(i/3)] = "Q"
+				elif rna_seq[i+2] == "G":	pep_seq[int(i/3)] = "Q"
+			elif rna_seq[i+1] == "G":	pep_seq[int(i/3)] = "R"
+		elif rna_seq[i] == "A":	#A _ _
+			if rna_seq[i+1] == "U":	
+				if rna_seq[i+2] == "U":	pep_seq[int(i/3)] = "I"
+				elif rna_seq[i+2] == "C":	pep_seq[int(i/3)] = "I"
+				elif rna_seq[i+2] == "A":	pep_seq[int(i/3)] = "I"
+				elif rna_seq[i+2] == "G":	pep_seq[int(i/3)] = "M"
+			elif rna_seq[i+1] == "C":	pep_seq[int(i/3)] = "T"
+			elif rna_seq[i+1] == "A":
+				if rna_seq[i+2] == "U":	pep_seq[int(i/3)] = "N"
+				elif rna_seq[i+2] == "C":	pep_seq[int(i/3)] = "N"
+				elif rna_seq[i+2] == "A":	pep_seq[int(i/3)] = "K"
+				elif rna_seq[i+2] == "G":	pep_seq[int(i/3)] = "K"
+			elif rna_seq[i+1] == "G":
+				if rna_seq[i+2] == "U":	pep_seq[int(i/3)] = "S"
+				elif rna_seq[i+2] == "C":	pep_seq[int(i/3)] = "S"
+				elif rna_seq[i+2] == "A":	pep_seq[int(i/3)] = "R"
+				elif rna_seq[i+2] == "G":	pep_seq[int(i/3)] = "R"
+		elif rna_seq[i] == "G":	#G _ _
+			if rna_seq[i+1] == "U":	pep_seq[int(i/3)] = "V"
+			elif rna_seq[i+1] == "C":	pep_seq[int(i/3)] = "A"
+			elif rna_seq[i+1] == "A":
+				if rna_seq[i+2] == "U":	pep_seq[int(i/3)] = "D"
+				elif rna_seq[i+2] == "C":	pep_seq[int(i/3)] = "D"
+				elif rna_seq[i+2] == "A":	pep_seq[int(i/3)] = "E"
+				elif rna_seq[i+2] == "G":	pep_seq[int(i/3)] = "E"
+			elif rna_seq[i+1] == "G":	pep_seq[int(i/3)] = "G"
+
+	pep_seq = "".join(pep_seq)
+	return pep_seq
